@@ -1,0 +1,106 @@
+name: CI
+
+# When the pipeline runs:
+# 1. Pull Request to main -> lint + smoke tests (fast, blocks merge on failure)
+# 2. Push/merge to main   -> lint + full regression
+# 3. Every night          -> lint + full regression
+# 4. Manual trigger       -> lint + full regression
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 22 * * 0-4"   # 22:00 UTC (about midnight in Israel), Sunday to Thursday
+  workflow_dispatch:
+
+# Cancel an older run when a new commit is pushed to the same branch/PR
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BASE_URL: https://dummypay.vercel.app
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      # Static code analysis to catch style issues and obvious errors
+      - run: pip install ruff
+      - run: ruff check .
+
+  smoke:
+    name: Smoke tests
+    needs: lint
+    # Only on pull requests: a quick sanity check before merging
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright browser
+        run: playwright install --with-deps chromium
+
+      - name: Run smoke tests
+        run: pytest -m smoke --html=reports/smoke-report.html --self-contained-html
+
+      # Upload the HTML report even when tests fail
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-report
+          path: reports/
+          retention-days: 14
+
+  regression:
+    name: Regression tests
+    needs: lint
+    # Runs on merge to main, nightly schedule, and manual trigger
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright browser
+        run: playwright install --with-deps chromium
+
+      - name: Run full regression
+        run: pytest --html=reports/regression-report.html --self-contained-html
+
+      # Upload the HTML report even when tests fail
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regression-report
+          path: reports/
+          retention-days: 30
