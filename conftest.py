@@ -1,6 +1,8 @@
 import pytest
-from config import BASE_URL, USER, PASSWORD
+
+from config import BASE_URL, PASSWORD, USER
 from pages.login_page import LoginPage
+
 
 @pytest.fixture
 def login_page(page):

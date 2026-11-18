@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 
+
 class DummyPayBase(BasePage):
     def go_to_wallets(self):
         from pages.wallets_page import WalletsPage
