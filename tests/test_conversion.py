@@ -29,10 +29,16 @@ def test_CON_all_currency_pairs(
 
     Exchange rate accuracy is outside this test's scope.
     """
-
+    logged_in.page.pause()
+    print(f'from_currency: {from_currency}')
+    print(f'to_currency: {to_currency}')
+    
     wallets = logged_in.go_to_wallets()
+    print(f'wallets: {wallets}')
+    
     conversion = wallets.get_conversion()
-
+    print(f'Conversion: {conversion}')
+    pass
     conversion.set_conversion(
         amount="100",
         from_currency=from_currency,
