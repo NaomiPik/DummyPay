@@ -2,10 +2,10 @@
 
 
 
-import pytest
 from decimal import Decimal
-from playwright.sync_api import expect
 
+import pytest
+from playwright.sync_api import expect
 
 # ============================================================
 # Fixtures
@@ -146,7 +146,7 @@ def test_CON_007_high_valid_amount(conversion):
     actual_amount = conversion.get_converted_amount()
 
     # Step 5: Verify a positive result
-    assert actual_amount > Decimal("0"), (
+    assert actual_amount > Decimal(0), (
         "CON-007 FAILED: Expected a positive "
         f"conversion result, got {actual_amount}"
     )

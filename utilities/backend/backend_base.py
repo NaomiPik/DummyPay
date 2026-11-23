@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-__all__ = ["table", "rpc"]
+__all__ = ["rpc", "table"]
 
 
 URL = "https://vtimmqlnyoyxiwczfdwf.supabase.co"

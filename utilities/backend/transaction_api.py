@@ -3,7 +3,6 @@ import uuid
 from utilities.backend.backend_base import rpc
 from utilities.consts import CURENCY, FUNCTIONS
 
-
 __all__ = ["send_funds"]
 
 def send_funds(user_mail, amount = 10, currency = CURENCY.USD):

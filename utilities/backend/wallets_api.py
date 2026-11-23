@@ -1,4 +1,4 @@
-from utilities.backend.backend_base import table, rpc
+from utilities.backend.backend_base import rpc
 from utilities.consts import FUNCTIONS
 
 __all__ = ["get_wallet_summary"]
