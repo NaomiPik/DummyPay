@@ -10,6 +10,15 @@ def login_page(page):
     lp.open(BASE_URL)
     return lp
 
+# @pytest.fixture
+# def logged_in(login_page):
+#     return login_page.login(USER, PASSWORD)   # return DashboardPage
+
+
 @pytest.fixture
 def logged_in(login_page):
-    return login_page.login(USER, PASSWORD)   # return DashboardPage
+    print("USER type:", type(USER).__name__)
+    print("USER configured:", isinstance(USER, str) and bool(USER))
+    print("PASSWORD configured:", isinstance(PASSWORD, str) and bool(PASSWORD))
+
+    return login_page.login(USER, PASSWORD)
