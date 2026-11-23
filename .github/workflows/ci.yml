@@ -22,6 +22,12 @@ concurrency:
 env:
   BASE_URL: https://dummypay.vercel.app
   PYTHON_VERSION: "3.12"
+  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+  RESET_USER: ${{ secrets.RESET_USER }}
+  RESET_PASS: ${{ secrets.RESET_PASS }}
+  DUMMYPAY_USER: ${{ secrets.DUMMYPAY_USER }}
+  DUMMYPAY_PASS: ${{ secrets.DUMMYPAY_PASS }}
 
 jobs:
   lint:
