@@ -1,5 +1,6 @@
 import pytest
 from playwright.sync_api import expect
+
 from config import VALID_EMAIL, VALID_PASSWORD
 
 WRONG_PASSWORD = "WrongPass123!"

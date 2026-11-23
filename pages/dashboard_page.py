@@ -1,6 +1,7 @@
-from pages.dummypay_base import DummyPayBase
-from pages.base_page import BasePage
 import re
+
+from pages.base_page import BasePage
+
 
 class DashboardPage(BasePage):
 

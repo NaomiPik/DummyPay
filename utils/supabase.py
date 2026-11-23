@@ -1,5 +1,6 @@
 import requests
-from config import SUPABASE_URL, SUPABASE_ANON_KEY
+
+from config import SUPABASE_ANON_KEY, SUPABASE_URL
 
 HEADERS = {"apikey": SUPABASE_ANON_KEY, "Content-Type": "application/json"}
 
