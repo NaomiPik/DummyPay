@@ -1,6 +1,8 @@
+import pytest
 from playwright.sync_api import expect
 
 
+@pytest.mark.smoke
 def test_forgot_password_link_opens_reset_page(login_page):
     reset_page = login_page.go_to_forgot_password()
     expect(reset_page.heading).to_be_visible()

@@ -20,7 +20,6 @@ def test_login_session_token_is_not_accepted_as_reset_link(page):
 
 def test_reset_page_without_token_shows_invalid_link(page):
     page.goto(f"{BASE_URL}/reset-password")
-    page.pause()
     reset_page = ResetPasswordPage(page)
     expect(reset_page.invalid_heading).to_be_visible()
     expect(reset_page.invalid_message).to_be_visible()
