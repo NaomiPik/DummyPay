@@ -1,10 +1,9 @@
 
-from decimal import Decimal
-from playwright.sync_api import expect
-import pytest
 import re
-from pages.conversion_page import ConversionPage
+from decimal import Decimal
 
+import pytest
+from playwright.sync_api import expect
 
 CURRENCIES = ["ILS", "EUR", "USD", "GBP"]
 
@@ -30,9 +29,14 @@ def test_CON_all_currency_pairs(
     Exchange rate accuracy is outside this test's scope.
     """
 
+    print(f'from_currency: {from_currency}')
+    print(f'to_currency: {to_currency}')
+    
     wallets = logged_in.go_to_wallets()
+    print(f'wallets: {wallets}')
+    
     conversion = wallets.get_conversion()
-
+    print(f'Conversion: {conversion}')
     conversion.set_conversion(
         amount="100",
         from_currency=from_currency,
@@ -51,7 +55,7 @@ def test_CON_all_currency_pairs(
 
     actual = conversion.get_converted_amount()
 
-    assert actual > Decimal("0"), (
+    assert actual > Decimal(0), (
         f"Invalid conversion result for "
         f"{from_currency} -> {to_currency}: {actual}"
     )
@@ -234,7 +238,7 @@ def test_CON_012_same_currency_conversion(logged_in, currency):
     # Verify the numeric exchange rate
     rate = conversion.get_displayed_rate()
 
-    assert rate == Decimal("1"), (
+    assert rate == Decimal(1), (
         f"Expected rate 1 for {currency} -> {currency}, "
         f"got {rate}"
     )
@@ -404,7 +408,7 @@ def test_CON_014_change_target_currency(logged_in):
     # Step 8: Verify a numeric result is displayed
     actual_amount = conversion.get_converted_amount()
 
-    assert actual_amount > Decimal("0"), (
+    assert actual_amount > Decimal(0), (
         "CON-014 FAILED: Expected a positive "
         f"conversion result, got {actual_amount}"
     )
@@ -469,7 +473,7 @@ def test_CON_015_change_source_currency(logged_in):
     # Step 8: Verify a numeric result is displayed
     actual_amount = conversion.get_converted_amount()
 
-    assert actual_amount > Decimal("0"), (
+    assert actual_amount > Decimal(0), (
         "CON-015 FAILED: Expected a positive "
         f"conversion result, got {actual_amount}"
     )
