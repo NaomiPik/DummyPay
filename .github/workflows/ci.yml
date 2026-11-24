@@ -39,6 +39,13 @@ jobs:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           BACKEND_EMAIL: ${{ vars.BACKEND_EMAIL }}
           BACKEND_PASSWORD: ${{ secrets.BACKEND_PASSWORD }}
+          BASE_URL: https://dummypay.vercel.app
+          PYTHON_VERSION: "3.12"
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          RESET_USER: ${{ secrets.RESET_USER }}
+          RESET_PASS: ${{ secrets.RESET_PASS }}
+          DUMMYPAY_USER: ${{ secrets.DUMMYPAY_USER }}
+          DUMMYPAY_PASS: ${{ secrets.DUMMYPAY_PASS }}
         # pytest.ini uses --headed, so give the browser a virtual display
         run: xvfb-run --auto-servernum python -m pytest tests --tracing retain-on-failure --output test-results
 
