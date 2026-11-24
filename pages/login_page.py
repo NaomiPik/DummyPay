@@ -29,9 +29,3 @@ class LoginPage(BasePage):
     def go_to_forgot_password(self):
         self.forgot_password_link.click()
         return ForgotPasswordPage(self.page)
-
-    
-        # self.page.get_by_label("Email").fill(email)
-        # self.page.get_by_label("Password").fill(password)
-        # self.page.get_by_role("button", name="Sign in", exact=True).click()
-        # return DashboardPage(self.page)
