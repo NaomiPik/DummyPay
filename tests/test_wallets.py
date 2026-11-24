@@ -1,7 +1,10 @@
 import re
+from decimal import Decimal
+
 import pytest
 from playwright.sync_api import expect
-from decimal import Decimal
+
+
 @pytest.mark.skip(
     reason="Requires a user with fewer than four wallet types"
 )
@@ -310,8 +313,8 @@ def test_WAL_010_total_balance_calculation(logged_in):
     currency wallets have zero balance.
     """
 
-    from decimal import Decimal
     import re
+    from decimal import Decimal
 
     wallets = logged_in.go_to_wallets()
 
