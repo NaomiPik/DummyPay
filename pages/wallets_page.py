@@ -2,6 +2,7 @@
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import expect
 
+
 from pages.conversion_page import ConversionPage
 from pages.dummypay_base import DummyPayBase
 
@@ -11,7 +12,12 @@ class WalletsPage(DummyPayBase):
     Page Object for the DummyPay Wallets page.
     Contains wallet locators, actions, and data retrieval methods.
     """
-    
+    WALLET_NAMES = {
+    "ILS": "Israeli Shekel",
+    "EUR": "Euro",
+    "USD": "US Dollar",
+    "GBP": "British Pound"
+}
     def __init__(self, page):
         super().__init__(page)
 

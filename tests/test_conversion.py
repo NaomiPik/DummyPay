@@ -28,7 +28,7 @@ def test_CON_all_currency_pairs(
 
     Exchange rate accuracy is outside this test's scope.
     """
-    logged_in.page.pause()
+
     print(f'from_currency: {from_currency}')
     print(f'to_currency: {to_currency}')
     
